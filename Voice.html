@@ -1423,7 +1423,7 @@ async function processVoiceCommand(text) {
     transcriptText.textContent = text;
 
     try {
-        const res = await fetch("http://localhost:5000/speak", {
+        const res = await fetch("https://nexa-ai-pgs3.onrender.com/speak", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message: text })
