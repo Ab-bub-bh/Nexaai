@@ -1402,8 +1402,8 @@
         const legacyEmail = params.get("email");
 
         if (legacyUserId && legacyEmail) {
-            localStorage.setItem("nexaUserId", legacyUserId);
-            localStorage.setItem("nexaUserEmail", legacyEmail);
+            sessionStorage.setItem("nexaUserId", legacyUserId);
+            sessionStorage.setItem("nexaUserEmail", legacyEmail);
             window.history.replaceState({}, "", window.location.pathname);
             showToast("Sign in successful", "success");
             return;
@@ -1421,8 +1421,8 @@
         .then(res => res.json())
         .then(data => {
             if (data.success && data.userId && data.email) {
-                localStorage.setItem("nexaUserId", data.userId);
-                localStorage.setItem("nexaUserEmail", data.email);
+                sessionStorage.setItem("nexaUserId", data.userId);
+                sessionStorage.setItem("nexaUserEmail", data.email);
                 showToast("Sign in successful", "success");
                 updateUserStatus();
                 if (document.querySelectorAll("#slotsContainer .slot").length === 0) {
@@ -1524,8 +1524,8 @@
     const iconEl = document.getElementById("userStatusIcon");
     const banner = document.getElementById("googleBanner");
 
-    const savedUserId = localStorage.getItem("nexaUserId");
-    const savedEmail = localStorage.getItem("nexaUserEmail");
+    const savedUserId = sessionStorage.getItem("nexaUserId");
+    const savedEmail = sessionStorage.getItem("nexaUserEmail");
 
     if (savedUserId && savedEmail) {
         currentUser = { userId: savedUserId, email: savedEmail };
@@ -1821,8 +1821,8 @@
     // Listen for OAuth success
     window.addEventListener("message", (e) => {
         if (e.data && e.data.type === "auth-success") {
-            localStorage.setItem("nexaUserId", e.data.userId || "");
-            localStorage.setItem("nexaUserEmail", e.data.email || "");
+            sessionStorage.setItem("nexaUserId", e.data.userId || "");
+            sessionStorage.setItem("nexaUserEmail", e.data.email || "");
             updateUserStatus();
             showToast("Sign in successful", "success");
         }
