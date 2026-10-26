@@ -1879,6 +1879,14 @@
                     }
 
                     if (data.message) {
+                        // Agar NVIDIA ne content filter ka error bheja hai
+                        if (data.message.includes("CONTENT_FILTERED") || data.message.includes("NVIDIA Error")) {
+                            addMessage("⚠️ Content Restricted: Your prompt contains restricted words or violates safety policies. Please try a different prompt.", 'ai');
+                            return;
+                        }
+                    }
+
+                    if (data.message) {
                         addMessage(data.message, 'ai');
                         return;
                     }
@@ -1897,6 +1905,7 @@
 
                 addMessage('Response received but no handler matched.', 'ai');
 
+                    
             } catch (err) {
                 removeTyping();
                 console.error("Chat error:", err);
