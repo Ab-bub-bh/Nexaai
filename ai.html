@@ -1833,18 +1833,13 @@
             const text = chatInput.value.trim();
             if (!text || isSending) return;
 
-            if (localStorage.getItem('nexa_busy_mode') === 'voice') {
-                addMessage('Voice mode is active. Please stop voice input to use chat.', 'ai');
-                return;
-            }
-
+            
             addMessage(text, 'user');
             chatInput.value = '';
             isSending = true;
             chatSendBtn.disabled = true;
 
-            localStorage.setItem('nexa_busy_mode', 'chat');
-
+            
             addTyping();
 
             try {
@@ -1913,9 +1908,7 @@
             } finally {
                 isSending = false;
                 chatSendBtn.disabled = false;
-                if (localStorage.getItem('nexa_busy_mode') === 'chat') {
-                    localStorage.removeItem('nexa_busy_mode');
-                }
+                
             }
         }
 
@@ -1960,9 +1953,7 @@
             chatMessages.innerHTML = '';
             addMessage(WELCOME_MESSAGE, 'ai');
             closeOptionsMenu();
-            if (localStorage.getItem('nexa_busy_mode') === 'chat') {
-                localStorage.removeItem('nexa_busy_mode');
-            }
+           
         });
 
         // ============================================
