@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#030A15" />
+  <title>Nexa AI — Sign In</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #030A15;
+      --bg-2: #000509;
+      --cyan: #00E5FF;
+      --cyan-dim: rgba(0, 229, 255, 0.15);
+      --text: #E8F6FF;
+      --text-dim: #7A94B0;
+      --border: rgba(0, 229, 255, 0.14);
+    }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background:
+        radial-gradient(1200px 800px at 20% 20%, rgba(0, 130, 240, 0.12), transparent 60%),
+        radial-gradient(1000px 700px at 80% 80%, rgba(0, 80, 190, 0.1), transparent 60%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100dvh;
+      display: flex;
+      align-items: stretch;
+      overflow-x: hidden;
+    }
+
+    .page {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      width: 100%;
+      min-height: 100dvh;
+    }
+
+    /* ── LEFT ── */
+    .left {
+      position: relative;
+      padding: 48px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-right: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .left::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 229, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.035) 1px, transparent 1px);
+      background-size: 56px 56px;
+      -webkit-mask-image: radial-gradient(ellipse at 30% 40%, black 20%, transparent 70%);
+      mask-image: radial-gradient(ellipse at 30% 40%, black 20%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .brand {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Professional N logo ── */
+    .brand-mark {
+      position: relative;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #00E5FF 0%, #0090FF 45%, #0044AA 100%);
+      box-shadow:
+        0 4px 20px rgba(0, 229, 255, 0.35),
+        0 1px 3px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .brand-mark::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%);
+      pointer-events: none;
+    }
+    .brand-mark svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero { position: relative; max-width: 520px; }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      color: var(--cyan);
+      background: var(--cyan-dim);
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      margin-bottom: 24px;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 3.2vw, 2.75rem);
+      line-height: 1.15;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .hero h1 .accent { color: var(--cyan); }
+
+    .hero p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text-dim);
+      max-width: 440px;
+      margin-bottom: 36px;
+    }
+
+    .features {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 440px;
+    }
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+    .feature-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      background: rgba(0, 229, 255, 0.12);
+      border: 1px solid rgba(0, 229, 255, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cyan);
+      flex-shrink: 0;
+    }
+    .feature-icon svg { width: 12px; height: 12px; }
+
+    .left-footer {
+      position: relative;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      letter-spacing: 0.2px;
+    }
+
+    /* ── RIGHT ── */
+    .right {
+      padding: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(2, 8, 18, 0.35);
+    }
+
+    .login-card { width: 100%; max-width: 400px; }
+
+    .login-card h2 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+    .login-card .sub {
+      font-size: 0.92rem;
+      color: var(--text-dim);
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+
+    .btn-google {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      padding: 14px 20px;
+      background: #FFFFFF;
+      color: #1A1A1A;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1), 0 4px 16px rgba(0,0,0,0.25);
+    }
+    .btn-google:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 24px rgba(0, 229, 255, 0.15);
+    }
+    .btn-google:active { transform: translateY(0); }
+    .btn-google:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+    .btn-google .g-icon { width: 18px; height: 18px; flex-shrink: 0; }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 26px 0;
+      color: var(--text-dim);
+      font-size: 0.72rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .btn-secondary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 13px 20px;
+      background: transparent;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .btn-secondary:hover {
+      border-color: rgba(0, 229, 255, 0.4);
+      background: rgba(0, 229, 255, 0.04);
+    }
+
+    .terms {
+      margin-top: 32px;
+      font-size: 0.75rem;
+      line-height: 1.6;
+      color: var(--text-dim);
+      text-align: center;
+    }
+    .terms a { color: var(--cyan); text-decoration: none; }
+    .terms a:hover { text-decoration: underline; }
+
+    .btn-google.loading { pointer-events: none; opacity: 0.7; }
+    .btn-google.loading .g-icon { animation: spin 0.9s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ══════════════════════════════════════
+       TABLET
+       ══════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .left { padding: 40px 36px; }
+      .right { padding: 40px 32px; }
+      .hero h1 { font-size: 2rem; }
+    }
+
+    /* ══════════════════════════════════════
+       MOBILE — phone-first
+       ══════════════════════════════════════ */
+    @media (max-width: 860px) {
+      .page {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .left {
+        padding: calc(28px + env(safe-area-inset-top, 0px)) 24px 32px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        gap: 28px;
+      }
+      .left::before {
+        background-size: 40px 40px;
+        -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 30%, transparent 80%);
+        mask-image: radial-gradient(ellipse at 50% 30%, black 30%, transparent 80%);
+      }
+
+      .brand { font-size: 1rem; gap: 10px; }
+      .brand-mark { width: 34px; height: 34px; border-radius: 9px; }
+      .brand-mark svg { width: 20px; height: 20px; }
+
+      .hero { max-width: 100%; }
+      .hero-tag { font-size: 0.68rem; padding: 5px 10px; margin-bottom: 18px; }
+      .hero h1 {
+        font-size: 1.7rem;
+        line-height: 1.2;
+        margin-bottom: 14px;
+      }
+      .hero p {
+        font-size: 0.9rem;
+        line-height: 1.55;
+        margin-bottom: 0;
+        max-width: 100%;
+      }
+
+      /* features mobile pe hide — clutter avoid */
+      .features { display: none; }
+      .left-footer { display: none; }
+
+      .right {
+        padding: 32px 20px calc(32px + env(safe-area-inset-bottom, 0px));
+        align-items: flex-start;
+      }
+      .login-card { max-width: 100%; }
+
+      .login-card h2 { font-size: 1.35rem; }
+      .login-card .sub { font-size: 0.88rem; margin-bottom: 26px; }
+
+      /* 48px+ touch targets */
+      .btn-google { padding: 15px 20px; font-size: 0.92rem; min-height: 48px; }
+      .btn-secondary { padding: 14px 20px; min-height: 48px; }
+
+      .terms { margin-top: 26px; font-size: 0.72rem; }
+    }
+
+    /* ══════════════════════════════════════
+       SMALL PHONES (≤ 380px)
+       ══════════════════════════════════════ */
+    @media (max-width: 380px) {
+      .left { padding: calc(24px + env(safe-area-inset-top, 0px)) 18px 28px; gap: 22px; }
+      .right { padding: 28px 16px calc(28px + env(safe-area-inset-bottom, 0px)); }
+
+      .brand-mark { width: 32px; height: 32px; }
+      .brand-mark svg { width: 18px; height: 18px; }
+
+      .hero h1 { font-size: 1.5rem; }
+      .hero p { font-size: 0.86rem; }
+
+      .login-card h2 { font-size: 1.25rem; }
+      .btn-google { padding: 14px 18px; font-size: 0.88rem; }
+    }
+
+    /* Landscape phone — tight vertical */
+    @media (max-width: 860px) and (max-height: 500px) and (orientation: landscape) {
+      .left { padding: 20px 24px; gap: 16px; }
+      .hero p { display: none; }
+      .right { padding: 24px; }
+      .terms { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- LEFT -->
+    <div class="left">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <!-- Professional "N" — geometric, angled cut, cyan shine -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="nGrad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#FFFFFF"/>
+                <stop offset="1" stop-color="#D5F6FF"/>
+              </linearGradient>
+            </defs>
+            <path d="M5 19V5h2.2l9.6 11V5H19v14h-2.2L7.2 8v11H5z" fill="url(#nGrad)"/>
+          </svg>
+        </span>
+        <span>Nexa AI</span>
+      </div>
+
+      <div class="hero">
+        <span class="hero-tag">AI Workspace</span>
+        <h1>Build, automate, and scale with <span class="accent">AI</span> — all in one place.</h1>
+        <p>
+          A modern suite of AI agents for chat, voice, and email automation.
+          Secure, fast, and built for teams that ship.
+        </p>
+
+        <div class="features">
+          <div class="feature">
+            <span class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span>Google-authenticated, secure access</span>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span>Chat, voice, and email agents</span>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span>Real-time automation and scheduling</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="left-footer">© 2026 Nexa AI · All rights reserved</div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+      <div class="login-card">
+        <h2>Welcome back</h2>
+        <p class="sub">Sign in to your Nexa AI workspace to continue.</p>
+
+        <a href="#" class="btn-google" id="googleBtn">
+          <svg class="g-icon" viewBox="0 0 48 48" aria-hidden="true">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+          <span>Continue with Google</span>
+        </a>
+
+        <div class="divider">or</div>
+
+        <a href="#" class="btn-secondary" onclick="return false;">
+          Contact administrator for access
+        </a>
+
+        <p class="terms">
+          By signing in, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const API_BASE = (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.protocol === "file:")
+      ? "http://localhost:5000"
+      : "https://nexa-ai-pgs3.onrender.com";
+
+    document.getElementById("googleBtn").addEventListener("click", function (e) {
+      e.preventDefault();
+      this.classList.add("loading");
+      window.location.href = API_BASE + "/auth/google";
+    });
+  </script>
+</body>
+</html>
