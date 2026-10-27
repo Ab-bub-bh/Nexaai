@@ -38,7 +38,7 @@
       min-height: 100dvh;
     }
 
-    /* ── LEFT ── */
+    /* ── LEFT (desktop) ── */
     .left {
       position: relative;
       padding: 48px 56px;
@@ -71,7 +71,6 @@
       letter-spacing: 0.5px;
     }
 
-    /* ── Professional N logo ── */
     .brand-mark {
       position: relative;
       width: 38px;
@@ -179,7 +178,7 @@
       letter-spacing: 0.2px;
     }
 
-    /* ── RIGHT ── */
+    /* ── RIGHT (desktop) ── */
     .right {
       padding: 48px;
       display: flex;
@@ -285,97 +284,196 @@
     .btn-google.loading .g-icon { animation: spin 0.9s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ══════════════════════════════════════
-       TABLET
-       ══════════════════════════════════════ */
-    @media (max-width: 1024px) {
-      .left { padding: 40px 36px; }
-      .right { padding: 40px 32px; }
-      .hero h1 { font-size: 2rem; }
-    }
-
-    /* ══════════════════════════════════════
-       MOBILE — phone-first
-       ══════════════════════════════════════ */
+    /* ══════════════════════════════════════════════
+       MOBILE — app-like single screen
+       ══════════════════════════════════════════════ */
     @media (max-width: 860px) {
+      body {
+        display: block;
+        min-height: 100dvh;
+        overflow-y: auto;
+      }
+
       .page {
-        grid-template-columns: 1fr;
-        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        min-height: 100dvh;
+        position: relative;
+        overflow: hidden;
       }
 
+      /* Soft glowing aura behind logo */
+      .page::before {
+        content: '';
+        position: absolute;
+        top: -180px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 520px;
+        height: 520px;
+        background: radial-gradient(circle, rgba(0, 180, 255, 0.22) 0%, rgba(0, 120, 220, 0.08) 40%, transparent 70%);
+        pointer-events: none;
+        animation: logo-glow 7s ease-in-out infinite;
+        z-index: 0;
+      }
+
+      @keyframes logo-glow {
+        0%, 100% { opacity: 0.65; transform: translateX(-50%) scale(1); }
+        50%      { opacity: 1;    transform: translateX(-50%) scale(1.12); }
+      }
+
+      /* TOP — logo + brand name, centered */
       .left {
-        padding: calc(28px + env(safe-area-inset-top, 0px)) 24px 32px;
+        flex: 0 0 auto;
+        padding: calc(72px + env(safe-area-inset-top, 0px)) 24px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
         border-right: none;
-        border-bottom: 1px solid var(--border);
-        gap: 28px;
+        border-bottom: none;
+        background: transparent;
+        position: relative;
+        z-index: 1;
+        justify-content: flex-start;
+        gap: 0;
       }
-      .left::before {
-        background-size: 40px 40px;
-        -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 30%, transparent 80%);
-        mask-image: radial-gradient(ellipse at 50% 30%, black 30%, transparent 80%);
+      .left::before { display: none; }
+
+      .brand {
+        flex-direction: column;
+        gap: 22px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        color: var(--cyan);
+        text-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
       }
 
-      .brand { font-size: 1rem; gap: 10px; }
-      .brand-mark { width: 34px; height: 34px; border-radius: 9px; }
-      .brand-mark svg { width: 20px; height: 20px; }
-
-      .hero { max-width: 100%; }
-      .hero-tag { font-size: 0.68rem; padding: 5px 10px; margin-bottom: 18px; }
-      .hero h1 {
-        font-size: 1.7rem;
-        line-height: 1.2;
-        margin-bottom: 14px;
+      .brand-mark {
+        width: 88px;
+        height: 88px;
+        border-radius: 24px;
+        box-shadow:
+          0 20px 60px rgba(0, 229, 255, 0.55),
+          0 0 120px rgba(0, 120, 220, 0.4),
+          0 4px 12px rgba(0, 0, 0, 0.6),
+          inset 0 2px 0 rgba(255, 255, 255, 0.4);
       }
-      .hero p {
-        font-size: 0.9rem;
-        line-height: 1.55;
-        margin-bottom: 0;
-        max-width: 100%;
-      }
+      .brand-mark svg { width: 50px; height: 50px; }
 
-      /* features mobile pe hide — clutter avoid */
-      .features { display: none; }
+      .hero,
+      .features,
       .left-footer { display: none; }
 
+      /* BOTTOM — login form, centered */
       .right {
-        padding: 32px 20px calc(32px + env(safe-area-inset-bottom, 0px));
-        align-items: flex-start;
+        flex: 1;
+        padding: 64px 24px calc(40px + env(safe-area-inset-bottom, 0px));
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        background: transparent;
+        position: relative;
+        z-index: 1;
       }
-      .login-card { max-width: 100%; }
 
-      .login-card h2 { font-size: 1.35rem; }
-      .login-card .sub { font-size: 0.88rem; margin-bottom: 26px; }
+      .login-card {
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+      }
 
-      /* 48px+ touch targets */
-      .btn-google { padding: 15px 20px; font-size: 0.92rem; min-height: 48px; }
-      .btn-secondary { padding: 14px 20px; min-height: 48px; }
+      .login-card h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+        margin-bottom: 12px;
+      }
 
-      .terms { margin-top: 26px; font-size: 0.72rem; }
+      .login-card .sub {
+        font-size: 0.94rem;
+        line-height: 1.55;
+        margin-bottom: 42px;
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .btn-google {
+        padding: 18px 20px;
+        min-height: 58px;
+        font-size: 0.96rem;
+        font-weight: 600;
+        border-radius: 14px;
+        box-shadow:
+          0 2px 6px rgba(0, 0, 0, 0.15),
+          0 10px 40px rgba(0, 150, 255, 0.22),
+          0 0 0 1px rgba(255, 255, 255, 0.05);
+      }
+      .btn-google .g-icon { width: 22px; height: 22px; }
+
+      .divider {
+        margin: 30px 0;
+        font-size: 0.7rem;
+        letter-spacing: 1.8px;
+      }
+
+      .btn-secondary {
+        padding: 17px 20px;
+        min-height: 56px;
+        font-size: 0.93rem;
+        border-radius: 14px;
+      }
+
+      .terms {
+        margin-top: 40px;
+        font-size: 0.72rem;
+        line-height: 1.65;
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+        opacity: 0.85;
+      }
     }
 
-    /* ══════════════════════════════════════
-       SMALL PHONES (≤ 380px)
-       ══════════════════════════════════════ */
+    /* ── Small phones (≤380px) ── */
     @media (max-width: 380px) {
-      .left { padding: calc(24px + env(safe-area-inset-top, 0px)) 18px 28px; gap: 22px; }
-      .right { padding: 28px 16px calc(28px + env(safe-area-inset-bottom, 0px)); }
+      .left {
+        padding: calc(56px + env(safe-area-inset-top, 0px)) 20px 0;
+      }
+      .brand { gap: 18px; font-size: 0.68rem; letter-spacing: 4px; }
+      .brand-mark { width: 76px; height: 76px; border-radius: 20px; }
+      .brand-mark svg { width: 44px; height: 44px; }
 
-      .brand-mark { width: 32px; height: 32px; }
-      .brand-mark svg { width: 18px; height: 18px; }
-
-      .hero h1 { font-size: 1.5rem; }
-      .hero p { font-size: 0.86rem; }
-
-      .login-card h2 { font-size: 1.25rem; }
-      .btn-google { padding: 14px 18px; font-size: 0.88rem; }
+      .right {
+        padding: 48px 20px calc(32px + env(safe-area-inset-bottom, 0px));
+      }
+      .login-card h2 { font-size: 1.75rem; }
+      .login-card .sub { margin-bottom: 34px; font-size: 0.9rem; }
+      .btn-google { min-height: 54px; padding: 16px 18px; font-size: 0.92rem; }
+      .btn-google .g-icon { width: 20px; height: 20px; }
+      .btn-secondary { min-height: 52px; padding: 15px 18px; font-size: 0.9rem; }
+      .terms { margin-top: 32px; }
     }
 
-    /* Landscape phone — tight vertical */
+    /* ── Landscape phone ── */
     @media (max-width: 860px) and (max-height: 500px) and (orientation: landscape) {
-      .left { padding: 20px 24px; gap: 16px; }
-      .hero p { display: none; }
-      .right { padding: 24px; }
+      .page::before { width: 340px; height: 340px; top: -140px; }
+      .left { padding: calc(20px + env(safe-area-inset-top, 0px)) 20px 0; }
+      .brand { gap: 10px; font-size: 0.65rem; letter-spacing: 3px; flex-direction: row; }
+      .brand-mark { width: 44px; height: 44px; border-radius: 12px; }
+      .brand-mark svg { width: 26px; height: 26px; }
+      .right { padding: 20px 24px calc(20px + env(safe-area-inset-bottom, 0px)); }
+      .login-card h2 { font-size: 1.4rem; margin-bottom: 6px; }
+      .login-card .sub { margin-bottom: 20px; font-size: 0.85rem; }
+      .divider { margin: 16px 0; }
       .terms { display: none; }
+      .btn-google { min-height: 48px; padding: 12px 18px; }
+      .btn-secondary { min-height: 46px; padding: 12px 18px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -386,11 +484,9 @@
 <body>
   <div class="page">
 
-    <!-- LEFT -->
     <div class="left">
       <div class="brand">
         <span class="brand-mark" aria-hidden="true">
-          <!-- Professional "N" — geometric, angled cut, cyan shine -->
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="nGrad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
@@ -411,7 +507,6 @@
           A modern suite of AI agents for chat, voice, and email automation.
           Secure, fast, and built for teams that ship.
         </p>
-
         <div class="features">
           <div class="feature">
             <span class="feature-icon">
@@ -437,7 +532,6 @@
       <div class="left-footer">© 2026 Nexa AI · All rights reserved</div>
     </div>
 
-    <!-- RIGHT -->
     <div class="right">
       <div class="login-card">
         <h2>Welcome back</h2>
@@ -450,7 +544,7 @@
             <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
             <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
           </svg>
-          <span>Continue with Google</span>
+          <a href="BACKEND_URL/auth/google">Continue with Google</a>
         </a>
 
         <div class="divider">or</div>
