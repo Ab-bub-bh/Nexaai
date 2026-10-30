@@ -1553,42 +1553,23 @@
     </div>
 
     <script>
+            
+   (function protectRoute() {
+            const hash = window.location.hash || "";
+            const hasOAuthToken = hash.includes("t=");
+            const savedUserId = localStorage.getItem("nexaUserId") || sessionStorage.getItem("nexaUserId");
+
+            if (!hasOAuthToken && !savedUserId) {
+                window.location.replace("/signup.html"); 
+            }
+        })();
+
     const API_BASE = (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.protocol === "file:")
       ? "http://localhost:5000"
       : "https://nexa-ai-pgs3.onrender.com";
 
       // ── Session exchange (login ke baad URL se token uthata hai) ──
-(async () => {
-  const hash = window.location.hash;
 
-  // 1. Token exchange (sirf jab hash ho)
-  if (hash && hash.startsWith("#t=")) {
-    const token = hash.slice(3);
-    history.replaceState(null, "", window.location.pathname);
-
-    try {
-      const res = await fetch(`${API_BASE}/auth/session`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        sessionStorage.setItem("userId", data.userId);
-        sessionStorage.setItem("email", data.email);
-      } else {
-        console.error("Session failed:", data.error);
-      }
-    } catch (err) {
-      console.error("Session error:", err);
-    }
-  }
-
-  // 2. Session check (hamesha chalta hai)
-  if (!sessionStorage.getItem("userId")) {
-    window.location.href = "/signup.html";
-  }
-})();
 
         const chatMessages = document.getElementById('chatMessages');
         const chatInput = document.getElementById('chatInput');
