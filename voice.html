@@ -1241,6 +1241,16 @@
 
     <script>
 
+    (function protectRoute() {
+            const hash = window.location.hash || "";
+            const hasOAuthToken = hash.includes("t=");
+            const savedUserId = localStorage.getItem("nexaUserId") || sessionStorage.getItem("nexaUserId");
+
+            if (!hasOAuthToken && !savedUserId) {
+                window.location.replace("/signup.html"); 
+            }
+        })();
+
         // ========== LIVE TIME & DATE UPDATE ==========
 function updateTime() {
     const now = new Date();
