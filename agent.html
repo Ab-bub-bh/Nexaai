@@ -1384,19 +1384,17 @@
     const API_BASE = (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.protocol === "file:")
     ? "http://localhost:5000"
     : "https://nexa-ai-pgs3.onrender.com";
-    const MAX_SLOTS = 4;
-
-    (function autoRedirect() {
-        const savedUserId = localStorage.getItem("nexaUserId");
-        const urlParams = new URLSearchParams(window.location.search);
-        const isResetLink = urlParams.has("token"); // Agar reset password ka link hai, toh mat roko
-
-        if (savedUserId && !isResetLink) {
-            window.location.href = "/ai.html";
-        }
-    })();
 
 
+if (!sessionStorage.getItem("nexaUserId")) {
+    document.documentElement.style.display = "none";
+    location.replace("signup.html");
+  }
+
+
+
+
+    const MAX_SLOTS = 4; 
     // ============================================
     // STATE
     // ============================================

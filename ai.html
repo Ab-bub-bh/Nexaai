@@ -1563,6 +1563,7 @@
       : "https://nexa-ai-pgs3.onrender.com";
 
    if (!sessionStorage.getItem("nexaUserId")) {
+    document.documentElement.style.display = "none";
     location.replace("signup.html");
   }
 
