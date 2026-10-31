@@ -1562,16 +1562,11 @@
       ? "http://localhost:5000"
       : "https://nexa-ai-pgs3.onrender.com";
 
-
-(function protectRoute() {
-    // Check karo ki user logged in hai ya nahi
-    const savedUserId = localStorage.getItem("nexaUserId");
-
-    // Agar user naya hai (ID nahi hai), toh seedha signup page pe bhej do
-    if (!savedUserId) {
-        window.location.replace("/signup");
-    }
-})();
+   (function () {
+      if (!localStorage.getItem("nexaUserId")) {
+        window.location.replace("signup.html");
+      }
+    })();
 
       // ── Session exchange (login ke baad URL se token uthata hai) ──
 
