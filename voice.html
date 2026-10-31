@@ -1241,18 +1241,21 @@
 
     <script>
 
-    (function protectRoute() {
-            const hash = window.location.hash || "";
-            const hasOAuthToken = hash.includes("t=");
-            const savedUserId = localStorage.getItem("nexaUserId") || sessionStorage.getItem("nexaUserId");
-
-            if (!hasOAuthToken && !savedUserId) {
-                window.location.replace("/signup.html"); 
-            }
-        })();
+    
     const API_BASE = (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.protocol === "file:")
       ? "http://localhost:5000"
       : "https://nexa-ai-pgs3.onrender.com";
+
+(function autoRedirect() {
+        const savedUserId = localStorage.getItem("nexaUserId");
+        const urlParams = new URLSearchParams(window.location.search);
+        const isResetLink = urlParams.has("token"); // Agar reset password ka link hai, toh mat roko
+
+        if (savedUserId && !isResetLink) {
+            window.location.href = "/ai.html";
+        }
+    })();
+
 
         // ========== LIVE TIME & DATE UPDATE ==========
 function updateTime() {
