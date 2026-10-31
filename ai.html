@@ -1562,11 +1562,9 @@
       ? "http://localhost:5000"
       : "https://nexa-ai-pgs3.onrender.com";
 
-   (function () {
-      if (!localStorage.getItem("nexaUserId")) {
-        window.location.replace("signup.html");
-      }
-    })();
+   if (!sessionStorage.getItem("nexaUserId")) {
+    location.replace("signup.html");
+  }
 
       // ── Session exchange (login ke baad URL se token uthata hai) ──
 

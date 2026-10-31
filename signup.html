@@ -1,3 +1,7 @@
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,13 +105,12 @@
 
     .brand-mark svg { width: 22px; height: 22px; position: relative; z-index: 1; }
 
-    /* UPDATED: Hero Section layout to push up */
     .hero { 
       position: relative; 
       max-width: 480px; 
       display: flex;
       flex-direction: column;
-      margin-top: 60px; /* Logo ke baad space */
+      margin-top: 60px;
     }
 
     .hero-label {
@@ -206,7 +209,6 @@
       line-height: 1.4;
     }
 
-    /* UPDATED: Footer pushed to bottom */
     .left-footer {
       position: relative;
       font-size: 0.75rem;
@@ -225,7 +227,6 @@
 
     .card { width: 100%; max-width: 400px; }
 
-    /* View switching */
     .view { display: none; }
     .view.active { display: block; animation: fadeIn 0.25s ease; }
 
@@ -435,7 +436,6 @@
     .terms a { color: var(--text-dim); text-decoration: none; }
     .terms a:hover { color: var(--accent); }
 
-    /* ── Input and Tabs CSS ── */
     .mobile-wrap {
       display: flex;
       align-items: stretch;
@@ -496,7 +496,6 @@
       font-weight: 600;
     }
 
-    /* ── TEMPORARY: SECRET CODE SECTION CSS ── */
     .divider {
       display: flex;
       align-items: center;
@@ -559,9 +558,7 @@
     }
 
     .btn-secondary:hover { background: #FFB74D; }
-    /* ── END TEMPORARY CSS ── */
 
-    /* ── MOBILE TAGLINE ── */
     .mobile-tagline {
       display: none;
       font-size: 0.65rem;
@@ -575,7 +572,6 @@
       border: 1px solid rgba(0, 212, 255, 0.15);
     }
 
-    /* Mobile */
     @media (max-width: 900px) {
       .page {
         display: flex;
@@ -618,7 +614,6 @@
 
       .brand-mark svg { width: 42px; height: 42px; }
 
-      /* Show mobile tagline */
       .mobile-tagline { display: inline-block; }
 
       .hero, .features, .left-footer { display: none; }
@@ -688,11 +683,9 @@
           </svg>
         </span>
         <span>Nexa AI</span>
-        <!-- Mobile Only Tagline -->
         <span class="mobile-tagline">✦ Next-Gen AI Workspace</span>
       </div>
 
-      <!-- Desktop Hero Section (Moved Up) -->
       <div class="hero">
         <span class="hero-label">Enterprise AI</span>
         <h1>Deploy intelligent <span class="accent">AI agents</span> for your workflow.</h1>
@@ -735,22 +728,17 @@
     <div class="right">
       <div class="card">
 
-        <!-- ══════════════════════════════════
-             VIEW 1 — SIGN IN
-             ══════════════════════════════════ -->
+        <!-- VIEW 1 — SIGN IN -->
         <div class="view active" id="view-signin">
           <h2>Sign in</h2>
           <p class="sub">Welcome back. Enter your credentials to continue.</p>
 
           <form id="loginForm" novalidate>
-            
-            <!-- Login Tabs -->
             <div class="login-tabs">
               <button type="button" class="login-tab active" data-login-mode="mobile">Mobile</button>
               <button type="button" class="login-tab" data-login-mode="email">Email</button>
             </div>
 
-            <!-- Mobile Login -->
             <div class="field" id="loginMobileField">
               <label class="field-label" for="loginMobile">Mobile number</label>
               <div class="mobile-wrap">
@@ -759,7 +747,6 @@
               </div>
             </div>
 
-            <!-- Email Login (Hidden by default) -->
             <div class="field" id="loginEmailField" style="display: none;">
               <label class="field-label" for="loginEmail">Email</label>
               <div class="input-wrap">
@@ -803,13 +790,12 @@
 
           <p class="bottom-row">Don't have an account? <button type="button" id="toRegisterBtn">Create one</button></p>
 
-          <!-- ⚠️⚠️⚠️ TEMPORARY SECRET LOGIN SECTION - START ⚠️⚠️⚠️ -->
+          <!-- TEMPORARY SECRET LOGIN SECTION -->
           <div class="divider">or</div>
 
           <div class="secret-code-wrapper">
             <div class="secret-header">
               <span>🛠️ Developer Access</span>
-          
             </div>
             <div class="field" style="margin-bottom: 12px;">
               <div class="input-wrap">
@@ -818,16 +804,14 @@
             </div>
             <button type="button" class="btn-secondary" id="secretCodeBtn">Login with Code</button>
           </div>
-          <!-- ⚠️⚠️⚠️ TEMPORARY SECRET LOGIN SECTION - END ⚠️⚠️⚠️ -->
+          <!-- END TEMPORARY SECRET LOGIN SECTION -->
 
           <p class="terms">
             By signing in, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
           </p>
         </div>
 
-        <!-- ══════════════════════════════════
-             VIEW 2 — REGISTER
-             ══════════════════════════════════ -->
+        <!-- VIEW 2 — REGISTER -->
         <div class="view" id="view-register">
           <h2>Create account</h2>
           <p class="sub">Sign up with your mobile number to get started.</p>
@@ -848,7 +832,6 @@
               </div>
             </div>
 
-            <!-- Email is mandatory -->
             <div class="field">
               <label class="field-label" for="regEmail">Email <span style="color:#FF8888">*</span></label>
               <div class="input-wrap">
@@ -889,9 +872,7 @@
           <p class="bottom-row">Already have an account? <button type="button" id="backToSigninBtnReg">Sign in</button></p>
         </div>
 
-        <!-- ══════════════════════════════════
-             VIEW 3 — FORGOT PASSWORD
-             ══════════════════════════════════ -->
+        <!-- VIEW 3 — FORGOT PASSWORD -->
         <div class="view" id="view-forgot">
           <h2>Forgot password?</h2>
           <p class="sub">Enter your email and we'll send you a reset link.</p>
@@ -926,9 +907,7 @@
           </p>
         </div>
 
-        <!-- ══════════════════════════════════
-             VIEW 4 — RESET PASSWORD
-             ══════════════════════════════════ -->
+        <!-- VIEW 4 — RESET PASSWORD -->
         <div class="view" id="view-reset">
           <h2>Reset password</h2>
           <p class="sub">Choose a new password for your account.</p>
@@ -978,25 +957,21 @@
       ? "http://localhost:5000"
       : "https://nexa-ai-pgs3.onrender.com";
 
-    /* ⚠️⚠️⚠️ TEMPORARY SECRET LOGIN LOGIC - START ⚠️⚠️⚠️ */
-    const SECRET_CODE = "NEXA9428"; // <-- Secret code yahan change karo
+    /* TEMPORARY SECRET LOGIN LOGIC */
+    const SECRET_CODE = "nexa9428"; 
     
     document.getElementById("secretCodeBtn").addEventListener("click", () => {
       const inputCode = document.getElementById("secretCodeInput").value;
       if (inputCode === SECRET_CODE) {
         localStorage.setItem("nexaUserId", "dev_secret_user");
-        localStorage.setItem("nexaUserEmail", "admin@nexa.ai");
         window.location.href = "/ai.html";
       } else {
         alert("Invalid secret code. Try again.");
       }
     });
-    /* ⚠️⚠️⚠️ TEMPORARY SECRET LOGIN LOGIC - END ⚠️⚠️⚠️ */
+    /* END TEMPORARY SECRET LOGIN LOGIC */
 
-    
-    /* ─────────────────────────────────────
-       VIEW SWITCHING
-       ───────────────────────────────────── */
+    /* VIEW SWITCHING */
     const views = ["signin", "register", "forgot", "reset"];
     let resetToken = null;
 
@@ -1026,9 +1001,7 @@
       showView("signin");
     })();
 
-    /* ─────────────────────────────────────
-       LOGIN TABS (Mobile / Email)
-       ───────────────────────────────────── */
+    /* LOGIN TABS (Mobile / Email) */
     let loginMode = "mobile";
     document.querySelectorAll("[data-login-mode]").forEach(tab => {
       tab.addEventListener("click", () => {
@@ -1041,9 +1014,7 @@
       });
     });
 
-    /* ─────────────────────────────────────
-       PASSWORD TOGGLE & DIGITS-ONLY
-       ───────────────────────────────────── */
+    /* PASSWORD TOGGLE & DIGITS-ONLY */
     document.querySelectorAll(".toggle-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         let input;
@@ -1068,9 +1039,7 @@
       }
     });
 
-    /* ─────────────────────────────────────
-       SIGN IN FORM
-       ───────────────────────────────────── */
+    /* SIGN IN FORM */
     const loginForm = document.getElementById("loginForm");
     const loginErr = document.getElementById("loginError");
     const loginErrText = document.getElementById("loginErrorText");
@@ -1127,6 +1096,7 @@
           return;
         }
 
+        // Sirf nexaUserId save hoga
         if (data.userId) localStorage.setItem("nexaUserId", data.userId);
         window.location.href = "/ai.html";
       } catch (err) {
@@ -1138,9 +1108,7 @@
       }
     });
 
-    /* ─────────────────────────────────────
-       REGISTER FORM
-       ───────────────────────────────────── */
+    /* REGISTER FORM */
     const regForm = document.getElementById("regForm");
     const regMsg = document.getElementById("regMsg");
     const regMsgText = document.getElementById("regMsgText");
@@ -1186,7 +1154,7 @@
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            mobile, // 10 digits only
+            mobile,
             email: email,
             name: name || undefined,
             password
@@ -1199,8 +1167,8 @@
           return;
         }
 
+        // Sirf nexaUserId save hoga (email nahi)
         if (data.userId) localStorage.setItem("nexaUserId", data.userId);
-        if (data.email) localStorage.setItem("nexaUserEmail", data.email);
         window.location.href = "/ai.html";
       } catch (err) {
         console.error("Signup error:", err);
@@ -1211,9 +1179,7 @@
       }
     });
 
-    /* ─────────────────────────────────────
-       FORGOT PASSWORD FORM
-       ───────────────────────────────────── */
+    /* FORGOT PASSWORD FORM */
     const forgotForm = document.getElementById("forgotForm");
     const forgotMsg = document.getElementById("forgotMsg");
     const forgotMsgText = document.getElementById("forgotMsgText");
@@ -1265,9 +1231,7 @@
       }
     });
 
-    /* ─────────────────────────────────────
-       RESET PASSWORD FORM
-       ───────────────────────────────────── */
+    /* RESET PASSWORD FORM */
     const resetForm = document.getElementById("resetForm");
     const resetMsg = document.getElementById("resetMsg");
     const resetMsgText = document.getElementById("resetMsgText");
