@@ -1386,11 +1386,11 @@
     : "https://nexa-ai-pgs3.onrender.com";
 
 
-if (!sessionStorage.getItem("nexaUserId")) {
+  if (!sessionStorage.getItem("loggedIn", "1")) {
     document.documentElement.style.display = "none";
     location.replace("signup.html");
-  }
 
+   }
 
 
 

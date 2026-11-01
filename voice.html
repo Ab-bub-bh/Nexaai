@@ -1246,11 +1246,14 @@
       ? "http://localhost:5000"
       : "https://nexa-ai-pgs3.onrender.com";
 
-    if (!sessionStorage.getItem("nexaUserId")) {
+
+      if (!sessionStorage.getItem("loggedIn", "1")) {
     document.documentElement.style.display = "none";
     location.replace("signup.html");
-  }
 
+   }
+
+    
         // ========== LIVE TIME & DATE UPDATE ==========
 function updateTime() {
     const now = new Date();
