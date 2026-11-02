@@ -949,7 +949,8 @@
   </div>
 
   <script>
-    const API_BASE = (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.protocol === "file:")
+    
+      const API_BASE = (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.protocol === "file:")
       ? "http://localhost:5000"
       : "https://nexa-ai-pgs3.onrender.com";
 
@@ -1292,7 +1293,7 @@
         resetBtn.disabled = false;
         resetBtn.classList.remove("loading");
       }
-    });
+    });  
   </script>
 </body>
 </html>
