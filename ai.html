@@ -6,6 +6,9 @@
     <title>Nexa AI - Chat Interface</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ============================================
+           NEW: Animated gradient angle property
+           ============================================ */
         @property --angle {
             syntax: '<angle>';
             initial-value: 0deg;
@@ -67,6 +70,9 @@
             mask-image: radial-gradient(ellipse at center, black 0%, transparent 72%);
         }
 
+        /* ============================================
+           NEW: Floating ambient glow orbs
+           ============================================ */
         body::after {
             content: '';
             position: fixed;
@@ -107,6 +113,9 @@
             overflow: hidden;
         }
 
+        /* ============================================
+           NEW: Rotating conic border glow
+           ============================================ */
         .chat-shell::before {
             content: '';
             position: absolute;
@@ -133,120 +142,6 @@
             to { --angle: 360deg; }
         }
 
-        /* ============================================
-           NEW — Space scene (inside the chat card)
-           ============================================ */
-        .space-scene {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-            border-radius: inherit;
-        }
-
-        /* Soft nebula glow drifting slowly */
-        .space-nebula {
-            position: absolute;
-            inset: -12%;
-            background:
-                radial-gradient(ellipse 42% 34% at 22% 28%, rgba(90, 45, 200, 0.22), transparent 65%),
-                radial-gradient(ellipse 40% 36% at 78% 72%, rgba(0, 140, 240, 0.18), transparent 65%),
-                radial-gradient(ellipse 34% 30% at 55% 50%, rgba(140, 70, 220, 0.10), transparent 70%);
-            filter: blur(20px);
-            animation: nebula-drift 32s ease-in-out infinite alternate;
-            will-change: transform;
-        }
-
-        @keyframes nebula-drift {
-            0%   { transform: translate(0, 0) scale(1); }
-            50%  { transform: translate(22px, -18px) scale(1.06); }
-            100% { transform: translate(-14px, 12px) scale(1.02); }
-        }
-
-        /* Far stars — tiny, dim, wide coverage */
-        .space-stars {
-            position: absolute;
-            inset: 0;
-            background-image:
-                radial-gradient(1px 1px at 6% 14%, rgba(255,255,255,0.55), transparent 100%),
-                radial-gradient(1px 1px at 18% 72%, rgba(180,220,255,0.6), transparent 100%),
-                radial-gradient(1px 1px at 28% 38%, rgba(255,255,255,0.5), transparent 100%),
-                radial-gradient(1px 1px at 36% 86%, rgba(180,220,255,0.55), transparent 100%),
-                radial-gradient(1px 1px at 44% 22%, rgba(255,255,255,0.6), transparent 100%),
-                radial-gradient(1px 1px at 52% 64%, rgba(180,220,255,0.5), transparent 100%),
-                radial-gradient(1px 1px at 58% 12%, rgba(255,255,255,0.55), transparent 100%),
-                radial-gradient(1px 1px at 66% 78%, rgba(180,220,255,0.6), transparent 100%),
-                radial-gradient(1px 1px at 74% 44%, rgba(255,255,255,0.5), transparent 100%),
-                radial-gradient(1px 1px at 82% 24%, rgba(180,220,255,0.55), transparent 100%),
-                radial-gradient(1px 1px at 90% 68%, rgba(255,255,255,0.6), transparent 100%),
-                radial-gradient(1px 1px at 12% 46%, rgba(180,220,255,0.5), transparent 100%),
-                radial-gradient(1px 1px at 24% 18%, rgba(255,255,255,0.55), transparent 100%),
-                radial-gradient(1px 1px at 34% 56%, rgba(180,220,255,0.5), transparent 100%),
-                radial-gradient(1px 1px at 46% 82%, rgba(255,255,255,0.6), transparent 100%),
-                radial-gradient(1px 1px at 56% 34%, rgba(180,220,255,0.5), transparent 100%),
-                radial-gradient(1px 1px at 68% 56%, rgba(255,255,255,0.55), transparent 100%),
-                radial-gradient(1px 1px at 78% 88%, rgba(180,220,255,0.5), transparent 100%),
-                radial-gradient(1px 1px at 88% 16%, rgba(255,255,255,0.6), transparent 100%),
-                radial-gradient(1px 1px at 96% 52%, rgba(180,220,255,0.55), transparent 100%);
-            animation: stars-twinkle 7s ease-in-out infinite;
-        }
-
-        @keyframes stars-twinkle {
-            0%, 100% { opacity: 0.7; }
-            50%      { opacity: 1; }
-        }
-
-        /* Bright stars — fewer, cyan-tinted, faster twinkle */
-        .space-stars--bright {
-            position: absolute;
-            inset: 0;
-            background-image:
-                radial-gradient(1.6px 1.6px at 10% 30%, rgba(255,255,255,0.95), transparent 100%),
-                radial-gradient(1.6px 1.6px at 22% 60%, rgba(0,229,255,0.9), transparent 100%),
-                radial-gradient(1.8px 1.8px at 38% 24%, rgba(255,255,255,0.95), transparent 100%),
-                radial-gradient(1.6px 1.6px at 50% 76%, rgba(180,220,255,0.9), transparent 100%),
-                radial-gradient(1.8px 1.8px at 62% 40%, rgba(0,229,255,0.85), transparent 100%),
-                radial-gradient(1.6px 1.6px at 72% 14%, rgba(255,255,255,0.95), transparent 100%),
-                radial-gradient(1.8px 1.8px at 86% 58%, rgba(180,220,255,0.9), transparent 100%),
-                radial-gradient(1.6px 1.6px at 94% 30%, rgba(0,229,255,0.85), transparent 100%),
-                radial-gradient(1.6px 1.6px at 16% 88%, rgba(255,255,255,0.9), transparent 100%),
-                radial-gradient(1.8px 1.8px at 44% 50%, rgba(180,220,255,0.85), transparent 100%);
-            animation: stars-twinkle-bright 4s ease-in-out infinite;
-        }
-
-        @keyframes stars-twinkle-bright {
-            0%, 100% { opacity: 0.6; }
-            50%      { opacity: 1; }
-        }
-
-        /* Occasional shooting star */
-        .space-shooting {
-            position: absolute;
-            top: 15%;
-            right: -50px;
-            width: 100px;
-            height: 1.5px;
-            background: linear-gradient(90deg, transparent, rgba(180,220,255,0.85), #FFFFFF);
-            border-radius: 2px;
-            filter: drop-shadow(0 0 6px rgba(180, 220, 255, 0.9));
-            opacity: 0;
-            animation: shoot 11s ease-in infinite;
-            will-change: transform, opacity;
-        }
-
-        @keyframes shoot {
-            0%   { opacity: 0; transform: translate(0, 0) rotate(30deg); }
-            4%   { opacity: 0; transform: translate(0, 0) rotate(30deg); }
-            8%   { opacity: 1; transform: translate(-50px, 30px) rotate(30deg); }
-            22%  { opacity: 1; transform: translate(-380px, 220px) rotate(30deg); }
-            26%  { opacity: 0; transform: translate(-440px, 255px) rotate(30deg); }
-            100% { opacity: 0; transform: translate(-440px, 255px) rotate(30deg); }
-        }
-
-        /* ============================================
-           Content layers (above space scene)
-           ============================================ */
         .chat-header {
             padding: calc(18px + env(safe-area-inset-top, 0px)) 26px 18px;
             border-bottom: 1px solid var(--border-subtle);
@@ -258,6 +153,9 @@
             background: linear-gradient(180deg, rgba(0, 16, 34, 0.4), transparent);
         }
 
+        /* ============================================
+           NEW: Header scan line sweep
+           ============================================ */
         .chat-header::before {
             content: '';
             position: absolute;
@@ -326,6 +224,9 @@
             box-shadow: 0 0 16px rgba(0, 229, 255, 0.28);
         }
 
+        /* ============================================
+           MODIFIED: AI Avatar — breathing glow added
+           ============================================ */
         .chat-header-avatar {
             position: relative;
             width: 42px;
@@ -465,6 +366,9 @@
             50% { transform: scale(1.18); opacity: 0.72; }
         }
 
+        /* ============================================
+           OPTIONS MENU
+           ============================================ */
         .chat-options-wrapper {
             position: relative;
             flex-shrink: 0;
@@ -564,6 +468,9 @@
             text-shadow: 0 0 10px rgba(0, 229, 255, 0.75);
         }
 
+        /* ============================================
+           AI SIDEBAR
+           ============================================ */
         .ai-sidebar-overlay {
             position: fixed;
             inset: 0;
@@ -713,6 +620,9 @@
             position: relative;
         }
 
+        /* ============================================
+           NEW: Active feature accent bar + hover slide
+           ============================================ */
         .ai-feature.active::before {
             content: '';
             position: absolute;
@@ -820,6 +730,9 @@
             flex-shrink: 0;
         }
 
+        /* ============================================
+           NEW: Footer pulse dot
+           ============================================ */
         .ai-sidebar-footer::before {
             content: '●';
             color: var(--hud-cyan);
@@ -829,7 +742,6 @@
             text-shadow: 0 0 8px rgba(0, 229, 255, 0.7);
         }
 
-        /* MODIFIED: only added position: relative so messages layer above space scene */
         .chat-messages {
             flex: 1;
             min-height: 0;
@@ -840,10 +752,11 @@
             gap: 18px;
             scrollbar-width: thin;
             scrollbar-color: rgba(0, 229, 255, 0.25) transparent;
-            position: relative;
-            z-index: 1;
         }
 
+        /* ============================================
+           MODIFIED: Scrollbar gradient
+           ============================================ */
         .chat-messages::-webkit-scrollbar { width: 6px; }
         .chat-messages::-webkit-scrollbar-track { background: transparent; }
         .chat-messages::-webkit-scrollbar-thumb {
@@ -950,6 +863,9 @@
             gap: 6px;
         }
 
+        /* ============================================
+           NEW: Meta glow dot before AI label
+           ============================================ */
         .msg.ai .msg-meta::before {
             content: '';
             display: inline-block;
@@ -972,6 +888,9 @@
             transition: box-shadow 0.3s ease, transform 0.3s ease;
         }
 
+        /* ============================================
+           NEW: User bubble right accent bar
+           ============================================ */
         .msg.user .msg-bubble::after {
             content: '';
             position: absolute;
@@ -985,6 +904,9 @@
             pointer-events: none;
         }
 
+        /* ============================================
+           NEW: AI bubble left accent bar
+           ============================================ */
         .msg.ai .msg-bubble::before {
             content: '';
             position: absolute;
@@ -1008,8 +930,6 @@
                 inset 0 1px 0 rgba(255, 255, 255, 0.06),
                 inset 0 0 20px rgba(0, 229, 255, 0.05);
             border-top-right-radius: 6px;
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
         }
 
         .msg.ai .msg-bubble {
@@ -1024,10 +944,11 @@
                 inset 0 1px 0 rgba(255, 255, 255, 0.03),
                 inset 0 0 20px rgba(0, 229, 255, 0.03);
             border-top-left-radius: 6px;
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
         }
 
+        /* ============================================
+           NEW: Bubble hover lift
+           ============================================ */
         .msg.ai .msg-bubble:hover {
             transform: translateY(-1px);
             box-shadow:
@@ -1217,7 +1138,6 @@
             box-shadow: 0 0 22px rgba(0, 229, 255, 0.4);
         }
 
-        /* MODIFIED: only added z-index: 1 so input bar sits above the space scene */
         .chat-input-bar {
             padding: 16px 24px calc(18px + env(safe-area-inset-bottom, 0px) + 12px);
             border-top: 1px solid rgba(0, 229, 255, 0.12);
@@ -1227,7 +1147,6 @@
             flex-shrink: 0;
             background: rgba(0, 8, 20, 0.5);
             position: relative;
-            z-index: 1;
         }
 
         .chat-input-bar::before {
@@ -1242,6 +1161,9 @@
             animation: bar-sweep 4s ease-in-out infinite;
         }
 
+        /* ============================================
+           NEW: Input bar glow sweep animation
+           ============================================ */
         @keyframes bar-sweep {
             0%   { transform: translateX(-40%); opacity: 0; }
             30%  { opacity: 0.7; }
@@ -1255,6 +1177,9 @@
             isolation: isolate;
         }
 
+        /* ============================================
+           NEW: Input focus halo glow
+           ============================================ */
         .chat-input-wrapper::before {
             content: '';
             position: absolute;
@@ -1305,6 +1230,9 @@
             animation: input-focus-pulse 2.4s ease-in-out infinite;
         }
 
+        /* ============================================
+           NEW: Input focus pulse glow
+           ============================================ */
         @keyframes input-focus-pulse {
             0%, 100% {
                 box-shadow:
@@ -1346,6 +1274,9 @@
             overflow: hidden;
         }
 
+        /* ============================================
+           NEW: Send button pulse outline ring
+           ============================================ */
         .chat-send-btn:not(:disabled) {
             animation: send-outline 3s ease-in-out infinite;
         }
@@ -1409,6 +1340,9 @@
             padding: 4px 2px;
         }
 
+        /* ============================================
+           MODIFIED: typing dots — extra glow layer
+           ============================================ */
         .typing span {
             width: 6px;
             height: 6px;
@@ -1436,7 +1370,7 @@
         }
 
         /* ============================================
-           MOBILE
+           MOBILE: performance-friendly overrides
            ============================================ */
         @media (max-width: 768px) {
             body { padding: 0; overflow: hidden; }
@@ -1459,12 +1393,9 @@
                 border-bottom: none;
             }
 
-            /* Space scene: keep the same premium look, lighter blur + slower shooting star */
-            .space-nebula { filter: blur(16px); animation-duration: 40s; }
-            .space-shooting { animation-duration: 14s; }
-
+            /* FIX: Header padding increased to push it down */
             .chat-header { padding: calc(24px + env(safe-area-inset-top, 0px)) 16px 16px; }
-
+            
             .chat-header-avatar { width: 36px; height: 36px; }
             .chat-header-avatar-text { font-size: 0.7rem; }
             .chat-header-title { font-size: 0.74rem; letter-spacing: 1.8px; }
@@ -1501,8 +1432,9 @@
         }
 
         @media (max-width: 420px) {
+            /* FIX: Small screen header padding increased slightly */
             .chat-header { padding: calc(20px + env(safe-area-inset-top, 0px)) 14px 14px; }
-
+            
             .chat-header-avatar { width: 32px; height: 32px; }
             .chat-header-avatar-text { font-size: 0.62rem; }
             .chat-header-title { font-size: 0.68rem; letter-spacing: 1.5px; }
@@ -1540,18 +1472,6 @@
 
             .chat-options-menu { min-width: 172px; }
             .chat-option-item { font-size: 0.78rem; padding: 9px 11px; }
-
-            .space-shooting { animation-duration: 16s; }
-        }
-
-        /* Accessibility: no motion */
-        @media (prefers-reduced-motion: reduce) {
-            .space-nebula,
-            .space-stars,
-            .space-stars--bright,
-            .space-shooting {
-                animation: none !important;
-            }
         }
     </style>
 </head>
@@ -1590,14 +1510,6 @@
     </aside>
 
     <div class="chat-shell">
-        <!-- NEW: Space scene inside the chat card -->
-        <div class="space-scene" aria-hidden="true">
-            <div class="space-nebula"></div>
-            <div class="space-stars"></div>
-            <div class="space-stars space-stars--bright"></div>
-            <div class="space-shooting"></div>
-        </div>
-
         <div class="chat-header">
             <div class="chat-header-left">
                 <button class="chat-menu-btn" id="chatMenuBtn" title="AI Features" aria-label="Toggle AI Features">
@@ -1641,6 +1553,11 @@
     </div>
 
     <script>
+
+
+
+            
+   
     const API_BASE = (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.protocol === "file:")
       ? "http://localhost:5000"
       : "https://nexa-ai-pgs3.onrender.com";
@@ -1648,7 +1565,12 @@
    if (!sessionStorage.getItem("loggedIn", "1")) {
     document.documentElement.style.display = "none";
     location.replace("signup.html");
+
    }
+  
+
+      // ── Session exchange ──
+
 
         const chatMessages = document.getElementById('chatMessages');
         const chatInput = document.getElementById('chatInput');
@@ -1926,11 +1848,13 @@
             const text = chatInput.value.trim();
             if (!text || isSending) return;
 
+            
             addMessage(text, 'user');
             chatInput.value = '';
             isSending = true;
             chatSendBtn.disabled = true;
 
+            
             addTyping();
 
             try {
@@ -1965,6 +1889,7 @@
                     }
 
                     if (data.message) {
+                        // Agar NVIDIA ne content filter ka error bheja hai
                         if (data.message.includes("CONTENT_FILTERED") || data.message.includes("NVIDIA Error")) {
                             addMessage("⚠️ Content Restricted: Your prompt contains restricted words or violates safety policies. Please try a different prompt.", 'ai');
                             return;
@@ -1990,6 +1915,7 @@
 
                 addMessage('Response received but no handler matched.', 'ai');
 
+                    
             } catch (err) {
                 removeTyping();
                 console.error("Chat error:", err);
@@ -1997,6 +1923,7 @@
             } finally {
                 isSending = false;
                 chatSendBtn.disabled = false;
+                
             }
         }
 
@@ -2005,6 +1932,9 @@
             if (e.key === 'Enter') sendMessage();
         });
 
+        // ============================================
+        // OPTIONS MENU (three-dot)
+        // ============================================
         function openOptionsMenu() {
             chatOptionsMenu.classList.add('open');
             chatOptionsBtn.classList.add('active');
@@ -2024,6 +1954,7 @@
             }
         });
 
+        // Outside click closes menu
         document.addEventListener('click', (e) => {
             if (!chatOptionsMenu.classList.contains('open')) return;
             const wrapper = chatOptionsBtn.parentElement;
@@ -2032,12 +1963,17 @@
             }
         });
 
+        // Clear Chat
         clearChatBtn.addEventListener('click', () => {
             chatMessages.innerHTML = '';
             addMessage(WELCOME_MESSAGE, 'ai');
             closeOptionsMenu();
+           
         });
 
+        // ============================================
+        // SIDEBAR — ChatGPT-style open/close
+        // ============================================
         function openSidebar() {
             aiSidebar.classList.add('open');
             aiSidebarOverlay.classList.add('open');
@@ -2078,16 +2014,19 @@
             btn.addEventListener('click', () => {
                 const feature = btn.dataset.feature;
 
+                // Voice Agent → Voice.html
                 if (feature === 'voice-agent') {
                     window.location.href = 'voice.html';
                     return;
                 }
 
+                // Email Agent → ai.html
                 if (feature === 'email-agent') {
                     window.location.href = 'agent.html';
                     return;
                 }
 
+                // Fallback (preserved existing behavior for any future features)
                 const isActive = btn.classList.contains('active');
                 aiFeatureBtns.forEach(b => b.classList.remove('active'));
                 if (!isActive) {
