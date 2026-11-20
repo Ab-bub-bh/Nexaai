@@ -1273,7 +1273,8 @@
                 <div class="form-grid">
                     <div class="field">
                         <label class="field-label">Recipient Email</label>
-                        <input type="email" class="field-input" id="test-recipient" placeholder="your@email.com" autocomplete="off" />
+                        <!-- SEC FIX #4a: maxlength on recipient -->
+                        <input type="email" class="field-input" id="test-recipient" placeholder="your@email.com" autocomplete="off" maxlength="254" />
                         <span class="field-hint">Email will be sent to this address</span>
                     </div>
 
@@ -1292,7 +1293,8 @@
 
                 <div class="field" style="margin-top: 16px;">
                     <label class="field-label">Message</label>
-                    <textarea class="field-textarea" id="test-message" placeholder="Write your message here..."></textarea>
+                    <!-- SEC FIX #4b: maxlength on message -->
+                    <textarea class="field-textarea" id="test-message" placeholder="Write your message here..." maxlength="5000"></textarea>
                 </div>
 
                 <div class="actions-row">
@@ -1455,7 +1457,7 @@
     
 
     // ============================================
-    // TOAST NOTIFICATIONS
+    //TOAST NOTIFICATIONS
     // ============================================
     function showToast(message, type = "info") {
         const toast = document.createElement("div");
@@ -1467,9 +1469,10 @@
             info: "fa-circle-info"
         };
 
+        // SEC FIX #1: escape message to prevent DOM XSS
         toast.innerHTML = `
             <i class="fas ${icons[type] || icons.info}"></i>
-            <span>${message}</span>
+            <span>${escapeHtml(message)}</span>
         `;
 
         document.getElementById("toastContainer").appendChild(toast);
@@ -1600,13 +1603,15 @@
                 <div class="form-grid">
                     <div class="field">
                         <label class="field-label">Sender Email (From)</label>
-                        <input type="email" class="field-input slot-sender" placeholder="you@gmail.com" autocomplete="off" value="${senderPrefill}" />
+                        <!-- SEC FIX #4c: maxlength on sender -->
+                        <input type="email" class="field-input slot-sender" placeholder="you@gmail.com" autocomplete="off" value="${senderPrefill}" maxlength="254" />
                         <span class="field-hint">From your connected Gmail</span>
                     </div>
 
                     <div class="field">
                         <label class="field-label">Recipient Email (To)</label>
-                        <input type="email" class="field-input slot-recipient" placeholder="recipient@email.com" autocomplete="off" />
+                        <!-- SEC FIX #4d: maxlength on recipient -->
+                        <input type="email" class="field-input slot-recipient" placeholder="recipient@email.com" autocomplete="off" maxlength="254" />
                         <span class="field-hint">Where the email will be sent</span>
                     </div>
                 </div>
@@ -1624,7 +1629,8 @@
 
                 <div class="field" style="margin-top: 16px;">
                     <label class="field-label">Message</label>
-                    <textarea class="field-textarea slot-message" placeholder="Write your message here..."></textarea>
+                    <!-- SEC FIX #4e: maxlength on message -->
+                    <textarea class="field-textarea slot-message" placeholder="Write your message here..." maxlength="5000"></textarea>
                 </div>
             </div>
         `;
@@ -1677,7 +1683,7 @@
         return res.json();
     }
 
-    // Test apply
+    // Test apply//
     document.getElementById("test-apply").addEventListener("click", async (e) => {
         const btn = e.currentTarget;
         const recipient = document.getElementById("test-recipient").value.trim();
@@ -1818,7 +1824,13 @@
     });
 
     // Listen for OAuth success
+    // SEC FIX #2: restrict message origin — same-origin or API origin only
     window.addEventListener("message", (e) => {
+        if (location.protocol !== "file:"
+            && e.origin !== location.origin
+            && e.origin !== new URL(API_BASE).origin) {
+            return;
+        }
         if (e.data && e.data.type === "auth-success") {
             sessionStorage.setItem("nexaUserId", e.data.userId || "");
             sessionStorage.setItem("nexaUserEmail", e.data.email || "");
@@ -1873,17 +1885,19 @@
 
             listEl.innerHTML = items.map(item => {
                 const icon = item.type === "test" ? "fa-flask" : "fa-rocket";
+                // SEC FIX #3a: escape item._id in attribute
                 const cancelBtn = item.status === "processing"
-                    ? `<button class="auto-cancel" data-cancel="${item._id}" title="Cancel">
+                    ? `<button class="auto-cancel" data-cancel="${escapeHtml(item._id)}" title="Cancel">
                            <i class="fas fa-xmark"></i>
                        </button>`
                     : "";
 
                 const timerLabel = formatTimer(item.timerMinutes, item.timerUnit);
 
+                // SEC FIX #3b: escape item.type and item.status
                 return `
                     <div class="auto-item">
-                        <div class="auto-type ${item.type}">
+                        <div class="auto-type ${escapeHtml(item.type)}">
                             <i class="fas ${icon}"></i>
                         </div>
                         <div class="auto-info">
@@ -1893,7 +1907,7 @@
                                 <span><i class="fas fa-hourglass-half"></i>${timerLabel}</span>
                             </div>
                         </div>
-                        <div class="auto-status ${item.status}">${item.status}</div>
+                        <div class="auto-status ${escapeHtml(item.status)}">${escapeHtml(item.status)}</div>
                         ${cancelBtn}
                     </div>
                 `;
